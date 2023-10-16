@@ -26,8 +26,9 @@ const handleFulfilledDelete = (state, action) => {
 
 const handleFulfilledCreate = (state, action) => {
   state.contacts.isLoading = false;
-  state.contacts.error = null;
   state.contacts.items.push(action.payload);
+  state.contacts.error = null;
+  
 };
 
 const contactsSlice = createSlice({
