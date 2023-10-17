@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteContact, fetchContacts } from 'redux/operations';
+import { deleteContact, fetchContacts, updateContact } from 'redux/operations';
 import { getContacts, getFilter } from 'redux/selectors';
 import css from './ContactList.module.css';
 export const ContactList = () => {
@@ -11,8 +11,32 @@ export const ContactList = () => {
 
   const removeContact = id => dispatch(deleteContact(id));
 
+  const [updateData, setUpdateData] = useState({
+    id: null,
+    name: '',
+    number: '',
+  });
+  const [isUpdating, setIsUpdating] = useState(false);
+
+  const toggleUpdateMode = (id, name, number) => {
+    setIsUpdating(true);
+    setUpdateData({ id, name, number });
+  };
+
+  const updatingContact = () => {
+    dispatch(
+      updateContact({
+        id: updateData.id,
+        data: { name: updateData.name, number: updateData.number },
+      })
+    );
+    setIsUpdating(false);
+    setUpdateData({ id: null, name: '', number: '' });
+  };
+
   const visibleContacts = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(filterContacts.toLowerCase()))
+    contact.name.toLowerCase().includes(filterContacts.toLowerCase())
+  );
 
   // console.log(visibleContacts);
 
@@ -22,19 +46,48 @@ export const ContactList = () => {
 
   return (
     <ul>
-      {visibleContacts && visibleContacts.map(({ id, name, number }) => (
-        <li className={css.item} key={id}>
-          <span className={css.nameNumber}>{name}: </span>
-          <span className={css.nameNumber}>{number}</span>
-          <button
-            type="button"
-            className={css.classListButton}
-            onClick={() => removeContact(id)}
-          >
-            Delete
+      {visibleContacts &&
+        visibleContacts.map(({ id, name, number }) => (
+          <li className={css.item} key={id}>
+            <span className={css.nameNumber}>{name}: </span>
+            <span className={css.nameNumber}>{number}</span>
+            <button
+              type="button"
+              className={css.classListButton}
+              onClick={() => removeContact(id)}
+            >
+              Delete
+            </button>
+            <button
+              type="button"
+              onClick={() => toggleUpdateMode(id, name, number)}
+            >
+              Update
+            </button>
+          </li>
+        ))}
+
+      {isUpdating && (
+        <li>
+          <input
+            type="text"
+            value={updateData.name}
+            onChange={e =>
+              setUpdateData({ ...updateData, name: e.target.value })
+            }
+          />
+          <input
+            type="text"
+            value={updateData.number}
+            onChange={e =>
+              setUpdateData({ ...updateData, number: e.target.value })
+            }
+          />
+          <button type="button" onClick={updatingContact}>
+            Save Update
           </button>
         </li>
-      ))}
+      )}
     </ul>
   );
 };
