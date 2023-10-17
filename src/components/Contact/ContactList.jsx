@@ -12,10 +12,9 @@ export const ContactList = () => {
   const removeContact = id => dispatch(deleteContact(id));
 
   const visibleContacts = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(filterContacts.toLowerCase())
-  );
+    contact.name.toLowerCase().includes(filterContacts.toLowerCase()))
 
-  console.log(visibleContacts);
+  // console.log(visibleContacts);
 
   useEffect(() => {
     dispatch(fetchContacts());
@@ -23,10 +22,10 @@ export const ContactList = () => {
 
   return (
     <ul>
-      {visibleContacts && visibleContacts.map(({ id, name, phone }) => (
+      {visibleContacts && visibleContacts.map(({ id, name, number }) => (
         <li className={css.item} key={id}>
           <span className={css.nameNumber}>{name}: </span>
-          <span className={css.nameNumber}>{phone}</span>
+          <span className={css.nameNumber}>{number}</span>
           <button
             type="button"
             className={css.classListButton}

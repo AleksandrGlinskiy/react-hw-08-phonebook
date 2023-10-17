@@ -2,50 +2,42 @@ import { createSlice } from '@reduxjs/toolkit';
 import { fetchContacts, deleteContact, addContact } from './operations';
 
 const handlePending = state => {
-  state.contacts.isLoading = true;
+  state.isLoading = true;
 };
 
 const handleRejected = (state, action) => {
-  state.contacts.isLoading = false;
-  state.contacts.error = action.payload;
+  state.isLoading = false;
+  state.error = action.payload;
 };
 
 const handleFulfilledGet = (state, action) => {
-  state.contacts.isLoading = false;
-  state.contacts.error = null;
-  state.contacts.items = action.payload;
+  state.isLoading = false;
+  state.error = null;
+  state.items = action.payload;
 };
 
 const handleFulfilledDelete = (state, action) => {
-  state.contacts.isLoading = false;
-  state.contacts.error = null;
-  state.contacts.items = state.contacts.items.filter(
+  state.isLoading = false;
+  state.error = null;
+  state.items = state.items.filter(
     item => item.id !== action.payload.id
   );
 };
 
 const handleFulfilledCreate = (state, action) => {
-  state.contacts.isLoading = false;
-  state.contacts.items.push(action.payload);
-  state.contacts.error = null;
-  
+  state.isLoading = false;
+  state.items.push(action.payload);
+  state.error = null;
 };
 
 const contactsSlice = createSlice({
   name: 'contacts',
   initialState: {
-    contacts: {
-      items: [],
-      isLoading: false,
-      error: null,
-    },
-    filter: '',
+    items: [],
+    isLoading: false,
+    error: null,
   },
-  reducers: {
-    filterContacts(state, action) {
-      state.filter = action.payload;
-    },
-  },
+
   extraReducers: builder => {
     builder
       .addCase(fetchContacts.pending, handlePending)
@@ -61,7 +53,3 @@ const contactsSlice = createSlice({
 });
 
 export const contactsReducer = contactsSlice.reducer;
-
-export const { filterContacts } = contactsSlice.actions;
-
-
