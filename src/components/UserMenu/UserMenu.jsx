@@ -5,10 +5,11 @@ import authSelectors from 'redux/auth/auth-selectors';
 const UserMenu = () => {
   const dispatch = useDispatch();
   const email = useSelector(authSelectors.getUserEmail);
+  const hangleLogOut = () => dispatch(logOut());
   return (
     <div>
       <p>{email}</p>
-      <button onClick={()=> dispatch(logOut())}>Logout</button>
+      <button onClick={hangleLogOut}>Logout</button>
     </div>
   );
 };
