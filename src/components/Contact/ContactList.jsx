@@ -4,13 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteContact, fetchContacts, updateContact } from 'redux/operations';
 import { getContacts, getFilter } from 'redux/selectors';
 import css from './ContactList.module.css';
-import {
-  List,
-  ListItem,
-  ListIcon,
-  OrderedList,
-  UnorderedList,
-} from '@chakra-ui/react'
+import { ListItem, OrderedList } from '@chakra-ui/react';
 export const ContactList = () => {
   const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
@@ -66,7 +60,7 @@ export const ContactList = () => {
               Delete
             </button>
             <button
-            className={css.classListButtonUpdate}
+              className={css.classListButtonUpdate}
               type="button"
               onClick={() => toggleUpdateMode(id, name, number)}
             >
