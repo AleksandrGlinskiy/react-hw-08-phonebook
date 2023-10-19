@@ -4,6 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteContact, fetchContacts, updateContact } from 'redux/operations';
 import { getContacts, getFilter } from 'redux/selectors';
 import css from './ContactList.module.css';
+import {
+  List,
+  ListItem,
+  ListIcon,
+  OrderedList,
+  UnorderedList,
+} from '@chakra-ui/react'
 export const ContactList = () => {
   const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
@@ -45,10 +52,10 @@ export const ContactList = () => {
   }, [dispatch]);
 
   return (
-    <ul>
+    <OrderedList>
       {visibleContacts &&
         visibleContacts.map(({ id, name, number }) => (
-          <li className={css.item} key={id}>
+          <ListItem className={css.item} key={id}>
             <span className={css.nameNumber}>{name}: </span>
             <span className={css.nameNumber}>{number}</span>
             <button
@@ -59,16 +66,17 @@ export const ContactList = () => {
               Delete
             </button>
             <button
+            className={css.classListButtonUpdate}
               type="button"
               onClick={() => toggleUpdateMode(id, name, number)}
             >
               Update
             </button>
-          </li>
+          </ListItem>
         ))}
 
       {isUpdating && (
-        <li>
+        <ListItem>
           <input
             type="text"
             value={updateData.name}
@@ -86,9 +94,9 @@ export const ContactList = () => {
           <button type="button" onClick={updatingContact}>
             Save Update
           </button>
-        </li>
+        </ListItem>
       )}
-    </ul>
+    </OrderedList>
   );
 };
 

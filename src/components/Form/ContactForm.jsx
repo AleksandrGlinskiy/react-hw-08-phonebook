@@ -58,7 +58,7 @@ export function ContactForm() {
   };
 
   return (
-    <form className={css.form} onSubmit={handleSubmit}>
+    <form className={css.form} onSubmit={handleSubmit} autoComplete='off'>
       <label className={css.label} htmlFor="">
         Name
         <input

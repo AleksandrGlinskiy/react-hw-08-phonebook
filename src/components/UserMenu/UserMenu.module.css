@@ -1,0 +1,23 @@
+.email {
+  font-size: 18px ;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  
+}
+
+
+.formButton{
+  cursor: pointer;
+  width: 100px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid gray;
+}
+
+.formButton:hover {
+  background-color: blue;
+  
+}

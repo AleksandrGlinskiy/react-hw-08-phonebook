@@ -8,11 +8,22 @@
 
 .classListButton{
   cursor: pointer;
-  width: 50px;
+  width: 60px;
   border-radius: 5px;
   border: 1px solid gray;
 }
 
+.classListButtonUpdate{
+  cursor: pointer;
+  width: 60px;
+  border-radius: 5px;
+  border: 1px solid gray;
+}
+
+.classListButtonUpdate:hover {
+  background-color: green;
+}
+
 .classListButton:hover {
-  background-color: blue;
+  background-color: red;
 }
